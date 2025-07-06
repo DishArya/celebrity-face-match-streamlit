@@ -1,13 +1,4 @@
-# 👇 Patch for keras_vggface compatibility with TF 2.10 / Keras 2.10
-import keras
-import keras.engine.input_layer
-import types
-
-topology = types.ModuleType("topology")
-topology.get_source_inputs = keras.engine.input_layer.Input
-keras.engine.topology = topology
-
-# ✅ Now import keras_vggface (this will now work)
+# NO PATCH NEEDED with legacy Keras
 from keras_vggface.utils import preprocess_input
 from keras_vggface.vggface import VGGFace
 
@@ -19,6 +10,7 @@ import os
 import cv2
 from mtcnn import MTCNN
 import numpy as np
+
 
 
 detector = MTCNN()
