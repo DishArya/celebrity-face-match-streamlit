@@ -1,10 +1,10 @@
 streamlit==1.22.0
-tensorflow==2.2.0
-keras==2.3.1
+tensorflow==2.10.0
+keras==2.10.0
 keras-vggface==0.6
 keras-applications==1.0.8
 mtcnn
 opencv-python
 scikit-learn
 pillow
-numpy==1.19.5
+numpy==1.23.5
