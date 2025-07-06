@@ -1,4 +1,3 @@
-python-3.10
 streamlit
 keras==2.12
 tensorflow==2.12
@@ -7,4 +6,4 @@ mtcnn
 opencv-python
 pillow
 scikit-learn
-numpy==1.24.3
+numpy==1.23.5
