@@ -2,6 +2,7 @@ streamlit
 keras==2.12
 tensorflow==2.12
 keras-vggface
+keras_applications
 mtcnn
 opencv-python
 pillow
