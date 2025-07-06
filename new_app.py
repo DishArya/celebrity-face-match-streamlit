@@ -1,4 +1,14 @@
-# NO PATCH NEEDED with legacy Keras
+# 👇 Patch for keras_vggface compatibility with Keras 2.10
+import types
+import keras.engine.input_layer
+import keras.utils
+
+# Create a fake keras.engine.topology module
+keras.engine.topology = types.ModuleType("topology")
+keras.engine.topology.InputLayer = keras.engine.input_layer.InputLayer
+keras.engine.topology.get_source_inputs = keras.utils.layer_utils.get_source_inputs
+
+# ✅ Now import keras_vggface (this will now work)
 from keras_vggface.utils import preprocess_input
 from keras_vggface.vggface import VGGFace
 
