@@ -1,5 +1,12 @@
+# 👇 Patch for keras_vggface compatibility with TF 2.10 / Keras 2.10
+import keras.engine
+import keras.engine.input_layer
+keras.engine.topology = keras.engine.input_layer
+
+# ✅ Now import keras_vggface (this will now work)
 from keras_vggface.utils import preprocess_input
 from keras_vggface.vggface import VGGFace
+
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
 import streamlit as st
@@ -8,6 +15,7 @@ import os
 import cv2
 from mtcnn import MTCNN
 import numpy as np
+
 
 detector = MTCNN()
 model = VGGFace(model='resnet50',include_top=False,input_shape=(224,224,3),pooling='avg')
