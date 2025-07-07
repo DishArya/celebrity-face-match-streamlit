@@ -1,16 +1,25 @@
-# 👇 Patch for keras_vggface compatibility with Keras 2.10
 import types
 import keras.engine.input_layer
 import keras.utils
 
-# Create a fake keras.engine.topology module
-keras.engine.topology = types.ModuleType("topology")
-keras.engine.topology.InputLayer = keras.engine.input_layer.InputLayer
-keras.engine.topology.get_source_inputs = keras.utils.layer_utils.get_source_inputs
+# Patch before any keras_vggface usage
+import sys
+import types
 
-# ✅ Now import keras_vggface (this will now work)
+# Create a dummy module keras.engine.topology
+import keras.engine.input_layer
+import keras.utils.layer_utils
+
+topology = types.ModuleType("keras.engine.topology")
+topology.InputLayer = keras.engine.input_layer.InputLayer
+topology.get_source_inputs = keras.utils.layer_utils.get_source_inputs
+
+sys.modules['keras.engine.topology'] = topology
+
+# Now import keras_vggface
 from keras_vggface.utils import preprocess_input
 from keras_vggface.vggface import VGGFace
+
 
 import pickle
 from sklearn.metrics.pairwise import cosine_similarity
