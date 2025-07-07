@@ -29,7 +29,7 @@ import os
 import cv2
 from mtcnn import MTCNN
 import numpy as np
-
+from pathlib import Path
 
 
 detector = MTCNN()
@@ -80,13 +80,19 @@ if uploaded_image is not None:
         features = extract_features(os.path.join('uploads', uploaded_image.name), model, detector)
         if features is not None:
             index_pos = recommend(feature_list, features)
-            predicted_actor = " ".join(filenames[index_pos].split('\\')[1].split('_'))
+            matched_path = Path(filenames[index_pos]).as_posix()
+            predicted_actor = " ".join(Path(matched_path).stem.split('_'))
+
             col1, col2 = st.columns(2)
 
             with col1:
                 st.header('Your Uploaded Image')
                 st.image(display_image)
+
             with col2:
-                st.header("Seems like " + predicted_actor)
-                st.image(filenames[index_pos], width=300)
+                st.header(f"Seems like {predicted_actor}")
+                if Path(matched_path).exists():
+                    st.image(matched_path, width=300)
+                else:
+                    st.error(f"Matched image not found: {matched_path}")
 
